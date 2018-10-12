@@ -8,7 +8,7 @@ import { AppComponent } from './app.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { StockListComponent } from './stock-list/stock-list.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { PvModule } from '../pv/pv.module';
+import { PvModule } from 'src/pv/pv.module';
 
 @NgModule({
   declarations: [

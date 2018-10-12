@@ -41,12 +41,12 @@ export class StockListDataSource extends DataSource<StockListItem> {
     // stream for the data-table to consume.
     const dataMutations = [
       observableOf(this.data),
-      this.paginator.page,
-      this.sort.sortChange
+      // this.paginator.page,
+      // this.sort.sortChange
     ];
 
     // Set the paginators length
-    this.paginator.length = this.data.length;
+    //this.paginator.length = this.data.length;
 
     return merge(...dataMutations).pipe(map(() => {
       return this.getPagedData(this.getSortedData([...this.data]));
@@ -64,8 +64,9 @@ export class StockListDataSource extends DataSource<StockListItem> {
    * this would be replaced by requesting the appropriate data from the server.
    */
   private getPagedData(data: StockListItem[]) {
-    const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
-    return data.splice(startIndex, this.paginator.pageSize);
+    // const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
+    // return data.splice(startIndex, this.paginator.pageSize);
+    return data;
   }
 
   /**
@@ -73,7 +74,7 @@ export class StockListDataSource extends DataSource<StockListItem> {
    * this would be replaced by requesting the appropriate data from the server.
    */
   private getSortedData(data: StockListItem[]) {
-    if (!this.sort.active || this.sort.direction === '') {
+    if (!this.sort || !this.sort.active || this.sort.direction === '') {
       return data;
     }
 

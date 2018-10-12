@@ -19,6 +19,6 @@ export class StockListComponent implements OnInit {
   constructor(private stockApi: StockApiService){}
 
   ngOnInit() {
-    this.dataSource = new StockListDataSource(this.paginator, this.sort);
+    this.dataSource = new StockListDataSource(null, null);
   }
 }

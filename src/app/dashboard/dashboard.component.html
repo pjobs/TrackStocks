@@ -16,7 +16,7 @@
           </mat-card-title>
         </mat-card-header>
         <mat-card-content class="dashboard-card-content">
-          <div><st-stock-list></st-stock-list></div>
+          <div *ngIf="card.title === 'Card 1'"><st-stock-list></st-stock-list></div>
         </mat-card-content>
       </mat-card>
     </mat-grid-tile>

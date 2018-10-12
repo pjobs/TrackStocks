@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { DataSource } from '@angular/cdk/collections';
 
 @Component({
   selector: 'pv-table',
@@ -6,8 +7,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./pv-table.component.scss']
 })
 export class PvTableComponent implements OnInit {
-
-  constructor() { }
+  @Input() dataSource: DataSource<any[]>;
+  @Input() displayedColumns: any[]=[];
+    constructor() { }
 
   ngOnInit() {
   }
