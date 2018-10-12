@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort } from '@angular/material';
 import { StockListDataSource } from './stock-list-datasource';
+import { StockApiService } from '../stockServices/stock-api.service';
 
 @Component({
   selector: 'st-stock-list',
@@ -13,7 +14,9 @@ export class StockListComponent implements OnInit {
   dataSource: StockListDataSource;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['id', 'name'];
+  displayedColumns = ['id', 'symbol', 'name'];
+
+  constructor(private stockApi: StockApiService){}
 
   ngOnInit() {
     this.dataSource = new StockListDataSource(this.paginator, this.sort);

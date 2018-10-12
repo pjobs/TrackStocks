@@ -8,13 +8,14 @@ import { AppComponent } from './app.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { StockListComponent } from './stock-list/stock-list.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { PvModule } from '../pv/pv.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavigationComponent,
     StockListComponent,
-    DashboardComponent
+    DashboardComponent,
   ],
   imports: [
     BrowserModule,
@@ -30,7 +31,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     MatListModule,
     MatTableModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    PvModule
   ],
   providers: [],
   bootstrap: [AppComponent]
