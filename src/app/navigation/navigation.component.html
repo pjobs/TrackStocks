@@ -6,11 +6,11 @@
     [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
     [mode]="(isHandset$ | async) ? 'over' : 'side'"
     [opened]="!(isHandset$ | async)">
-    <mat-toolbar color="primary">Menu</mat-toolbar>
+    <mat-toolbar color="primary"><img src="../assets/images/ts.png" style="size:48px" ></mat-toolbar>
     <mat-nav-list>
-      <a mat-list-item href="#">Link 1</a>
-      <a mat-list-item href="#">Link 2</a>
-      <a mat-list-item href="#">Link 3</a>
+        <a routerLink="/dashboard"  mat-list-item href="#">Home</a>
+        <a routerLink="/stocks" mat-list-item href="#">Stocks</a>
+        <a mat-list-item href="#">About</a>
     </mat-nav-list>
   </mat-drawer>
   <mat-drawer-content>
@@ -26,6 +26,6 @@
       <span>TrackStocks</span>
     </mat-toolbar>
     <!-- Add Content Here -->
-    <st-dashboard></st-dashboard>
+    <router-outlet></router-outlet>
   </mat-drawer-content>
 </mat-drawer-container>

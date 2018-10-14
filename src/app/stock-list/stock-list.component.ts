@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort } from '@angular/material';
 import { StockListDataSource } from './stock-list-datasource';
 import { StockApiService } from '../stockServices/stock-api.service';
+import { Observable } from 'rxjs';
+import { PvTableColumn } from '../../pv/pv-table/pv-table.component';
 
 @Component({
   selector: 'st-stock-list',
@@ -11,14 +13,19 @@ import { StockApiService } from '../stockServices/stock-api.service';
 export class StockListComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  dataSource: StockListDataSource;
+  dataSource: Observable<any>//StockListDataSource;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['id', 'symbol', 'name'];
+  displayedColumns: PvTableColumn[] = [
+    { name: 'id', displayName: 'Title' }, 
+    { name: 'symbol', displayName: 'Symbol' }, 
+    { name: 'name', displayName: 'Company' },
+    { name: 'price', displayName: 'Price' }
+  ];
 
-  constructor(private stockApi: StockApiService){}
+  constructor(private stockApi: StockApiService) { }
 
   ngOnInit() {
-    this.dataSource = new StockListDataSource(null, null);
+    this.dataSource = this.stockApi.getWatchList(0);
   }
 }
