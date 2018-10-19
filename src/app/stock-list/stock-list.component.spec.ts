@@ -2,6 +2,10 @@
 import { fakeAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { StockListComponent } from './stock-list.component';
+import { PvTableComponent } from '../../pv/pv-table/pv-table.component';
+import { MatPaginatorModule, MatTableModule, MatSortModule } from '@angular/material';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { MockComponent } from 'ng-mocks';
 
 describe('StockListComponent', () => {
   let component: StockListComponent;
@@ -9,7 +13,8 @@ describe('StockListComponent', () => {
 
   beforeEach(fakeAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ StockListComponent ]
+      declarations: [ StockListComponent, MockComponent(PvTableComponent) ],
+      imports: []
     })
     .compileComponents();
 
