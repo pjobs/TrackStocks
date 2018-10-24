@@ -11,7 +11,7 @@ export class DashboardComponent implements OnInit {
   cards: any;
   ngOnInit(): void {
     /** Based on the screen size, switch from standard to one column per row */
-    this.breakpointObserver.observe([Breakpoints.Small]).subscribe((state: BreakpointState) => {
+    this.breakpointObserver.observe([Breakpoints.Handset, Breakpoints.Small]).subscribe((state: BreakpointState) => {
       if (state.matches) {
         this.cards = [
           { title: 'Stocks', cols: 2, rows: 2 },
