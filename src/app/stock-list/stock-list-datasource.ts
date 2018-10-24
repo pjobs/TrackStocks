@@ -13,11 +13,11 @@ export interface StockListItem {
 
 // TODO: replace this with real data from your application
 const EXAMPLE_DATA: StockListItem[] = [
-  { id: 1, symbol: 'AAPL', name: 'Apple', price: 172.00 },
-  { id: 2, symbol: 'NDAQ', name: 'Nasdaq' , price: 82.00 },
-  { id: 3, symbol: 'MSFT', name: 'Microsoft' , price: 102.00 },
-  { id: 4, symbol: 'NFLX', name: 'Netflix' , price: 322.00 },
-  { id: 5, symbol: 'FB', name: 'Facebook' , price: 152.00 },
+  { id: 10, symbol: 'AAPL', name: 'Apple', price: 172.00 },
+  { id: 20, symbol: 'NDAQ', name: 'Nasdaq' , price: 82.00 },
+  { id: 30, symbol: 'MSFT', name: 'Microsoft' , price: 102.00 },
+  { id: 40, symbol: 'NFLX', name: 'Netflix' , price: 322.00 },
+  { id: 50, symbol: 'FB', name: 'Facebook' , price: 152.00 },
 ];
 
 /**

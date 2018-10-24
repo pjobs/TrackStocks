@@ -13,8 +13,7 @@ describe('NavigationComponent', () => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule, MatSidenavModule, MatToolbarModule, MatListModule, MatIconModule],
       declarations: [NavigationComponent]
-    })
-      .compileComponents();
+    }).compileComponents();
 
     fixture = TestBed.createComponent(NavigationComponent);
     component = fixture.componentInstance;

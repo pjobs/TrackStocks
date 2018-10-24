@@ -1,10 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PvTableComponent, PvTableColumn } from './pv-table.component';
-import { StockListItem } from '../../app/stock-list/stock-list-datasource';
+import { StockListItem } from '../../app/stock-list/stock-list-item';
 import { of } from 'rxjs/internal/observable/of';
 import { MatTableModule, MatSortModule, MatPaginatorModule } from '@angular/material';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('PvTableComponent', () => {
   let component: PvTableComponent;
