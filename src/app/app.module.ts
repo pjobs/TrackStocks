@@ -10,6 +10,10 @@ import { StockListComponent } from './stock-list/stock-list.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { PvModule } from 'src/pv/pv.module';
 import { appRoutes } from './app.routes';
+import { HttpInterceptorsModule } from 'src/http-interceptor/httpInterceptor.module';
+import { stockBackendProvider } from './stockServices/stock-api.service';
+
+
 
 @NgModule({
   declarations: [
@@ -34,9 +38,10 @@ import { appRoutes } from './app.routes';
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
-    PvModule
+    PvModule,
+    HttpInterceptorsModule
   ],
-  providers: [],
+  providers: [stockBackendProvider],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

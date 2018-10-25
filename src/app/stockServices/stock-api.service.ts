@@ -1,22 +1,34 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { StockListItem } from '../stock-list/stock-list-item';
+import { HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { map } from 'rxjs/internal/operators/map';
+import { UrlInterceptor } from 'src/http-interceptor/urlInterceptor';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StockApiService {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   getWatchList(id: number): Observable<any> {
-    const EXAMPLE_DATA: StockListItem[] = [
-      { id: 1, symbol: 'AAPL', name: 'Apple', price: 172.00 },
-      { id: 2, symbol: 'NDAQ', name: 'Nasdaq' , price: 82.00 },
-      { id: 3, symbol: 'MSFT', name: 'Microsoft' , price: 102.00 },
-      { id: 4, symbol: 'NFLX', name: 'Netflix' , price: 322.00 },
-      { id: 5, symbol: 'FB', name: 'Facebook' , price: 152.00 },
-    ];
-    return of(EXAMPLE_DATA);
+    let symbols = ['aapl', 'nflx', 'fb', 'snap', 'goog', 'amzn', 'msft'];
+    return this.http.get<any>(symbols.join(',')).pipe(map((data) => {
+      let quotes = symbols.map((symbol) => {
+        let quote = data[symbol.toUpperCase()]["quote"];
+        if (quote) {
+          return { symbol: symbol, name: quote.companyName, price: quote.latestPrice };
+        }
+        return null;
+      });
+      return quotes;
+    }));
   }
 }
+
+export let stockBackendProvider = {
+  provide: HTTP_INTERCEPTORS,
+  useClass: UrlInterceptor,
+  multi: true
+};

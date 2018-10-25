@@ -3,7 +3,8 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  stocks_api:'https://api.iextrading.com/1.0/stock/market/batch?types=quote&symbols='
 };
 
 /*
