@@ -20,7 +20,7 @@ import { stockBackendProvider } from './stockServices/stock-api.service';
     AppComponent,
     NavigationComponent,
     StockListComponent,
-    DashboardComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,

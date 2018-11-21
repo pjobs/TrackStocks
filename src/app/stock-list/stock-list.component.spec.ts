@@ -7,6 +7,7 @@ import { MatPaginatorModule, MatTableModule, MatSortModule } from '@angular/mate
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MockComponent } from 'ng-mocks';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
+import { PvEditTableComponent } from 'src/pv/pv-edit-table/pv-edit-table.component';
 
 describe('StockListComponent', () => {
   let component: StockListComponent;
@@ -14,7 +15,7 @@ describe('StockListComponent', () => {
 
   beforeEach(fakeAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ StockListComponent, MockComponent(PvTableComponent) ],
+      declarations: [ StockListComponent, MockComponent(PvEditTableComponent) ],
       imports: [HttpClientTestingModule]
     })
     .compileComponents();
