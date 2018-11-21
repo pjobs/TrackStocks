@@ -14,7 +14,7 @@ export class StockApiService {
 
   getWatchList(id: number): Observable<any> {
     let symbols = ['aapl', 'nflx', 'fb', 'snap', 'goog', 'amzn', 'msft'];
-    return this.http.get<any>(symbols.join(',')).pipe(map((data) => {
+    return this.http.get<any>(`/batch?types=quote&symbols=${symbols.join(',')}`).pipe(map((data) => {
       let quotes = symbols.map((symbol) => {
         let quote = data[symbol.toUpperCase()]["quote"];
         if (quote) {

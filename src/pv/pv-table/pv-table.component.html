@@ -9,6 +9,8 @@
       <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: columns"></mat-row>
     </table>
-    <mat-paginator [pageSizeOptions]="[5, 10, 20, 100]" showFirstLastButtons></mat-paginator>
+    <div [hidden]="sortedDS.data?.length <6">
+      <mat-paginator  [pageSizeOptions]="[5, 10, 20, 100]" showFirstLastButtons></mat-paginator>
+    </div>
   </div>
 </div>

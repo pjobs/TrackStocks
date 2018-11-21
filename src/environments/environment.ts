@@ -4,7 +4,11 @@
 
 export const environment = {
   production: false,
-  stocks_api:'https://api.iextrading.com/1.0/stock/market/batch?types=quote&symbols='
+  stocks_api:'https://api.iextrading.com/1.0/stock/market',
+  aws_clientId: '747nv187qvhdo1d2919abddqc6',
+  aws_userPoolId: 'us-east-1_9yH01PsjH',
+  aws_region:'us-east-1',
+  aws_auth_url: 'https://trackstocks.auth.us-east-1.amazoncognito.com',
 };
 
 /*

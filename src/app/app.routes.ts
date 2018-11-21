@@ -4,7 +4,7 @@ import { AppComponent } from "./app.component";
 import { DashboardComponent } from "./dashboard/dashboard.component";
 
 export const appRoutes: Routes = [
-    { path: 'dashboard', component: DashboardComponent},
+    { path: 'dashboard', component: DashboardComponent}, //, canActivate: [AuthGuard]
     { path: 'stocks', component: StockListComponent},
     { path: 'stocks', component: StockListComponent},
     { path: '', component: DashboardComponent},
