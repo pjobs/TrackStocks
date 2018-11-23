@@ -21,7 +21,6 @@ export class PvTableComponent implements OnInit {
   sortedDS = new MatTableDataSource();
   columns: string[] = [];
   columnTitles: {};
-
   get pvColumns(): PvTableColumn[] {
     return this._pvColumns;
   }

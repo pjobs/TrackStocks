@@ -5,6 +5,8 @@ import { Observable, Subject } from 'rxjs';
 import { PvTableColumn } from '../../pv/pv-table/pv-table.component';
 import { Breakpoints, BreakpointState, BreakpointObserver } from '@angular/cdk/layout';
 import { takeUntil } from 'rxjs/operators';
+import { PvEditTableColumn } from 'src/pv/pv-edit-table/pv-edit-table.component';
+import { FieldDefinition } from 'src/pv/pv-fields/view-models/field-definition';
 
 @Component({
   selector: 'st-stock-list',
@@ -19,27 +21,69 @@ export class StockListComponent implements OnInit, OnDestroy {
   private unsubscribeAll = new Subject();
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns: PvTableColumn[] = [];
+  displayedColumns: PvEditTableColumn[] = [];
+  stockDefinition: Array<FieldDefinition> = [
+    {
+      key: 'id',
+      type: 'number',
+      isId: true,
+      label: 'Id',
+      showLabel:false,
+      required: true
+    },
+    { key: 'symbol',
+      type: 'string',
+      isId: false,
+      label: 'Symbol',
+      showLabel:false,
+      required: true
+    },
+    { key: 'name',
+      type: 'string',
+      isId: false,
+      label: 'Name',
+      showLabel:false,
+      required: true
+    },
+    {
+      key: 'price',
+      type: 'number',
+      isId: false,
+      label: 'price',
+      showLabel:false,
+      required: true
+    }
+    // ,{
+    //   key: 'continent',
+    //   type: 'string',
+    //   isId: false,
+    //   label: 'Continent',
+    //   required: false,
+    //   inputType: 'lookUp',
+    //   options: [ {value: 'Africa', text: 'Africa'}, {value: 'Asia', text: 'Asia'}, {value: 'Europe', text: 'Europe'}]
+    // }
+  ];
+  
 
   constructor(private stockApi: StockApiService, private breakpointObserver: BreakpointObserver) { }
 
   ngOnInit() {
     this.breakpointObserver.observe([Breakpoints.Handset,Breakpoints.Small]).pipe(takeUntil(this.unsubscribeAll)).subscribe((state: BreakpointState) => {
       if (state.matches || this.small) {
-        this.displayedColumns = [
-          { name: 'identifier1', displayName: 'Id' },
-          { name: 'id', displayName: 'Id' },
-          { name: 'symbol', displayName: 'Symbol' },
-          { name: 'price', displayName: 'Price' }
+          // { name: 'id', displayName: 'Id', field: this.stockDefinition.find(k=>k.key == 'id') },
+          this.displayedColumns = [
+          //{ name: 'id', displayName: 'Id', field: this.stockDefinition.find(k=>k.key == 'id') },
+          { name: 'symbol', displayName: 'Symbol', field: this.stockDefinition.find(k=>k.key == 'symbol')  },
+          { name: 'price', displayName: 'Price', field: this.stockDefinition.find(k=>k.key == 'price')  }
         ];
       }
       else {
-        this.displayedColumns = [
-          { name: 'identifier1', displayName: 'Id' },
-          { name: 'id', displayName: 'Id' },
-          { name: 'symbol', displayName: 'Symbol' },
-          { name: 'name', displayName: 'Company' },
-          { name: 'price', displayName: 'Price' }
+          // { name: 'identifier1', displayName: 'Id', field: this.stockDefinition.find(k=>k.key == 'id') },
+          this.displayedColumns = [
+          //{ name: 'id', displayName: 'Id', field: this.stockDefinition.find(k=>k.key == 'id') },
+          { name: 'symbol', displayName: 'Symbol', field: this.stockDefinition.find(k=>k.key == 'symbol')  },
+          { name: 'name', displayName: 'Company', field: this.stockDefinition.find(k=>k.key == 'name')  },
+          { name: 'price', displayName: 'Price', field: this.stockDefinition.find(k=>k.key == 'price')  }
         ];
       }
     });
