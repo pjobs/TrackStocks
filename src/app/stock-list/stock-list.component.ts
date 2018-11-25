@@ -97,6 +97,7 @@ export class StockListComponent implements OnInit, OnDestroy {
   }
 
   onRowUpdate(value): void {
+    //this.dataSource.
   }
 
 }
