@@ -2,28 +2,28 @@
   <form (ngSubmit)="onSubmit()" [formGroup]="form">
     <div class="pv-edit-table-container mat-elevation-z8">
       <table mat-table matSort #table [dataSource]="sortedDS">
-        <ng-container *ngFor="let name of columnNames"  [matColumnDef]="name">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> {{columns[name]?.displayName}} </mat-header-cell>
+        <ng-container *ngFor="let key of columnKeys"  [matColumnDef]="key">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> {{columns[key]?.displayName}} </mat-header-cell>
           <mat-cell *matCellDef="let row"> 
-            <span *ngIf="!row.inEditMode && name !=='action'">{{row[name]}}</span>
-            <span *ngIf="row.inEditMode && name !=='action'">
-              <fw-dynamic-field [field]="columns[name]?.field" 
+            <span *ngIf="!row.inEditMode && key !=='action'">{{row[key]}}</span>
+            <span *ngIf="row.inEditMode && key !=='action'">
+              <fw-dynamic-field [field]="columns[key]?.field" 
                 [form]="form" 
                 [operation]="'edit'" 
                 [submitted]="submitted">
               </fw-dynamic-field>
             </span>
-            <span *ngIf="row.inEditMode && name ==='action'">
-                <button class="mdc-icon-button material-icons" (click)="updateRow(row)">check</button>
-                <button class="mdc-icon-button material-icons" (click)="onBlur(row)">close</button>
+            <span *ngIf="row.inEditMode && key ==='action'">
+                <button class="mdc-icon-button material-icons" (click)="updateRow(row);$event.stopPropagation();">check</button>
+                <button class="mdc-icon-button material-icons" (click)="onClose(row);$event.stopPropagation(); ">close</button>
             </span>
-            <span *ngIf="!row.inEditMode && name ==='action'">
+            <span *ngIf="!row.inEditMode && key ==='action'">
                 <button class="mdc-icon-button material-icons">edit</button>
             </span>
           </mat-cell>
         </ng-container>
-        <mat-header-row *matHeaderRowDef="columnNames"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: columnNames" (click)='editRow(row)' (blur)='onBlur(row)'>
+        <mat-header-row *matHeaderRowDef="columnKeys"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: columnKeys" (click)='editRow(row)' (blur)='onClose(row)'>
         </mat-row>
       </table>
       <mat-toolbar>

@@ -3,10 +3,10 @@ import { PvTableColumn } from '../pv-table/pv-table.component';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { Observable } from 'rxjs/internal/Observable';
 import { FieldDefinition } from '../pv-fields/view-models/field-definition';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormArray, FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 
 export interface PvEditTableColumn {
-  name: string,
+  key: string,
   displayName: string,
   field: FieldDefinition
 }
@@ -26,13 +26,13 @@ export class PvEditTableComponent implements OnInit {
 
   _pvColumns: PvEditTableColumn[];
   sortedDS = new MatTableDataSource();
-  columnNames: string[] = [];
-  // columnTitles: {};
+  columnKeys: string[] = [];
   columns: any = {};
   form: FormGroup;
   fields: Array<FieldDefinition>;
   submitted: boolean = false;
   currentEditRow:any=null;
+  rowForm:FormGroup;
 
 
   get pvColumns(): PvEditTableColumn[] {
@@ -41,36 +41,45 @@ export class PvEditTableComponent implements OnInit {
 
   @Input()
   set pvColumns(value: PvEditTableColumn[]) {
-    value.push({ name: 'action', displayName: 'Action', field: null })
+    value.push({ key: 'action', displayName: 'Action', field: null })
     this._pvColumns = value;
-    //this.fields =  Array.from(this._pvColumns, (col) => col.field);
+
     this._pvColumns.forEach((col) => {
-      col.displayName = col.displayName || col.name;
-      this.columns[col.name] = col;
+      col.displayName = col.displayName || col.key;
+      this.columns[col.key] = col;
     });
-    this.columnNames = Array.from(this._pvColumns, (col) => col.name);
+    this.columnKeys = Array.from(this._pvColumns, (col) => col.key);
   }
-  constructor() { }
+
+  constructor(private _formBuilder: FormBuilder) { 
+    
+  }
 
   ngOnInit() {
     this.dataSource.subscribe((data) => this.sortedDS.data = data);
     this.sortedDS.sort = this.sort;
     this.sortedDS.paginator = this.paginator;
-    this.form = new FormGroup({});
+    this.form = this._formBuilder.group({
+      rowEditing: this._formBuilder.array([])
+    });
   }
 
   editRow(row) {
-    if(this.currentEditRow) { this.onBlur(this.currentEditRow); }
+    if(this.currentEditRow) { 
+      if(row.inEditMode && row === this.currentEditRow) return false;
+      this.onClose(this.currentEditRow); 
+    }
     row.inEditMode = true;
     this.currentEditRow = row;
     let group = {};
     let rowCopy = Object.assign({}, row);
-    Object.keys(this.columns).forEach((col) => {
-      let field = this.columns[col].field;
-      if(field) {
-        group[field.key] = field.required ? new FormControl(rowCopy[field.key], Validators.required): new FormControl(rowCopy[field.key]);
+
+    this.columnKeys.forEach( key => {
+      let field = this.columns[key].field;
+      if(field) { 
+        group[field.key] = field.required ? new FormControl(rowCopy[key], Validators.required): new FormControl(rowCopy[key]); 
       }
-    });
+    })
     this.form = new FormGroup(group);
   }
 
@@ -79,12 +88,12 @@ export class PvEditTableComponent implements OnInit {
       this.submitted = true;
       if (this.form.valid) {
         this.update.emit(this.currentEditRow)
-        this.onBlur(this.currentEditRow); 
+        this.onClose(this.currentEditRow); 
       }
     }
   }
 
-  onBlur(row) {
+  onClose(row) {
     this.clearNonSubmitedNewRowsData();
     row.inEditMode = false;
     this.form.reset();
@@ -107,7 +116,7 @@ export class PvEditTableComponent implements OnInit {
   addNew() {
     this.clearNonSubmitedNewRowsData();
     let newRow = {}
-    this.columnNames.forEach((c)=> {
+    this.columnKeys.forEach((c)=> {
       newRow[c] = null;
     });
     newRow['isNew'] = true;

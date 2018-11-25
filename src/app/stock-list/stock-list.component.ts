@@ -73,27 +73,30 @@ export class StockListComponent implements OnInit, OnDestroy {
           // { name: 'id', displayName: 'Id', field: this.stockDefinition.find(k=>k.key == 'id') },
           this.displayedColumns = [
           //{ name: 'id', displayName: 'Id', field: this.stockDefinition.find(k=>k.key == 'id') },
-          { name: 'symbol', displayName: 'Symbol', field: this.stockDefinition.find(k=>k.key == 'symbol')  },
-          { name: 'price', displayName: 'Price', field: this.stockDefinition.find(k=>k.key == 'price')  }
+          { key: 'symbol', displayName: 'Symbol', field: this.stockDefinition.find(k=>k.key == 'symbol')  },
+          { key: 'price', displayName: 'Price', field: this.stockDefinition.find(k=>k.key == 'price')  }
         ];
       }
       else {
           // { name: 'identifier1', displayName: 'Id', field: this.stockDefinition.find(k=>k.key == 'id') },
           this.displayedColumns = [
           //{ name: 'id', displayName: 'Id', field: this.stockDefinition.find(k=>k.key == 'id') },
-          { name: 'symbol', displayName: 'Symbol', field: this.stockDefinition.find(k=>k.key == 'symbol')  },
-          { name: 'name', displayName: 'Company', field: this.stockDefinition.find(k=>k.key == 'name')  },
-          { name: 'price', displayName: 'Price', field: this.stockDefinition.find(k=>k.key == 'price')  }
+          { key: 'symbol', displayName: 'Symbol', field: this.stockDefinition.find(k=>k.key == 'symbol')  },
+          { key: 'name', displayName: 'Company', field: this.stockDefinition.find(k=>k.key == 'name')  },
+          { key: 'price', displayName: 'Price', field: this.stockDefinition.find(k=>k.key == 'price')   }
         ];
       }
     });
 
-    this.dataSource = this.stockApi.getWatchList(0);
+    this.dataSource = this.stockApi.getWatchList(0).pipe(takeUntil(this.unsubscribeAll));
   }
 
   ngOnDestroy(): void {
     this.unsubscribeAll.next();
     this.unsubscribeAll.complete();
+  }
+
+  onRowUpdate(value): void {
   }
 
 }
